@@ -28,6 +28,10 @@ przepuszcza zaszyfrowane bajty i nie widzi ani ekranu, ani hasła, ani klawiszy.
 
 ## 1. Szybki start
 
+```bash
+git clone https://github.com/worrisomeneed69/desklink.git && cd desklink
+```
+
 Wymagany Python 3.9+ (testowane na 3.11). Zależności są miękkie — bez nich DeskLink
 uruchomi się i powie, czego brakuje:
 
@@ -48,10 +52,11 @@ w `cmd`). Jeśli wolisz gotowy plik `.exe`, patrz sekcja 5.
 ### Scenariusz A — dwa komputery w tej samej sieci (bez serwera)
 
 1. Na komputerze, którym chcesz sterować: włącz DeskLink i suwak **Dostępny dla
-   innych**. Karta „Połączenie bezpośrednie (ta sama sieć)" pokaże port i adresy IP.
+   innych**. Karta „POLACZENIE BEZPOSREDNIE (TA SAMA SIEC)" — w oknie bez ogonków —
+   pokaże port i adresy IP.
 2. Na swoim komputerze: w polu „Połącz z komputerem" wpisz `192.168.1.20:7000`
    (adres i port z punktu 1) i kliknij **Połącz**.
-3. Host zapyta o zgodę — kliknij **Zezwól**. Gotowe.
+3. Host zapyta o zgodę — kliknij **Przyjmij**. Gotowe.
 
 Możesz też kliknąć **Skanuj** w karcie „Znalezione w sieci lokalnej": hosty
 nasłuchujące w tej samej podsieci wyskoczą na liście (UDP 51255).
@@ -77,27 +82,38 @@ ID jest zapamiętywane — po restarcie programu i komputera dostajesz to samo
 
 ## 2. Widok okna
 
-Okno główne: **Twój adres** (ID, odcisk klucza, alias), **Połącz z komputerem**
-(ID albo `ip:port`, checkbox „tylko podgląd", hasło), **Połączenie bezpośrednie**,
-**Znalezione w sieci lokalnej**, **Ostatnie komputery**, pasek logu na dole.
+Okno główne: **TWÓJ ADRES** (ID, odcisk klucza, alias), **POŁĄCZ Z KOMPUTEREM**
+(ID albo `ip:port`, checkbox „Tylko podgląd (bez sterowania)", pole „Hasło"),
+**POLACZENIE BEZPOSREDNIE (TA SAMA SIEC)**, **ZNALEZIONE W SIECI LOKALNEJ**,
+**OSTATNIE KOMPUTERY**, pasek logu na dole. Nagłówki kart są rysowane wersalnikami,
+a część z nich bez ogonków — tak jak są zapisane w kodzie.
 
-Podczas sesji kontroler dostaje okno z paskiem narzędzi (Rozłącz, Sterowanie,
-Schowek, Plik…, Monitor, Jakość, Pełny ekran) i statystykami na dole (fps, RTT,
-kb/s, jakość). Host dostaje panel „Twój ekran jest udostępniany" z trzema
-przełącznikami, suwakami fps/jakości i czerwonym **ROZŁĄCZ**.
+Podczas sesji kontroler dostaje okno z paskiem narzędzi (**Sterowanie**, **Schowek**,
+**Plik...**, **Monitor**, **Jakosc**, **Pelny ekran**, **Rozlacz**) i statystykami
+na dole w formacie `czas   fps   rtt ms   kb/s   jakosc`. Host dostaje panel
+„TWOJ EKRAN JEST UDOSTEPNIANY" z trzema przełącznikami (`Udostepniaj obraz ekranu`,
+`Zezwal na sterowanie mysza i klawiatura`, `Zablokuj te maszynie wejście lokalne`),
+suwakami **fps** i **jakosc**, przyciskiem **Odbierz plik...**, **Monitor** i czerwonym
+**ROZLACZ**.
 
 ## 3. Uprawnienia — co realnie decyduje o dostępie
 
-| Przełącznik / ustawienie | Gdzie | Efekt |
+| Przełącznik / ustawienie (dokładnie jak w oknie) | Gdzie | Efekt |
 |---|---|---|
-| Pytaj o zgodę przy każdym połączeniu | Ustawienia → Przychodzące | bez niego i z ustawionym hasłem = tryb bez nadzoru |
-| Zezwól na sterowanie myszką i klawiaturą | Ustawienia → Przychodzące | globalny zakaz pilotowania (nawet przy zgodzie) |
-| Zezwól na przesył plików | Ustawienia → Przychodzące | domyślnie **wyłączone** |
-| Synchronizuj schowek | Ustawienia → Przychodzące | kierunek: obustronny, za zgodą hosta |
-| Hasło dostępu | Ustawienia → Hasło | PBKDF2 + dowód; relay nigdy nie widzi hasła |
-| Udostępniaj obraz / Zezwól na sterowanie | panel hosta w trakcie sesji | wyłączane w dowolnym momencie, bez rozłączania |
-| Zablokuj tej maszynie wejście lokalne | panel hosta (Linux/X11) | osoba przy komputerze nie może ruszać myszy |
-| Dostępny dla innych | okno główne | twardy kill switch: brak nowych połączeń |
+| `Pytaj o zgode przy kazdym polaczeniu` | Ustawienia → **Przychodzace** | bez niego i z ustawionym hasłem = tryb bez nadzoru |
+| `Zezwal na sterowanie myszka i klawiatura` | Ustawienia → **Przychodzace** | globalny zakaz pilotowania (nawet przy zgodzie) |
+| `Zezwal na przesyl plikow` | Ustawienia → **Przychodzace** | domyślnie **wyłączone** |
+| `Synchronizuj schowek` | Ustawienia → **Przychodzace** | kierunek: obustronny, za zgodą hosta |
+| `Domyślnie tylko podgląd` | Ustawienia → **Przychodzace** | nowy gość dostaje sam obraz |
+| hasło bez nadzoru (unattended) | Ustawienia → **Haslo** | PBKDF2 + dowód; relay nigdy nie widzi hasła |
+| `Udostepniaj obraz ekranu` / `Zezwal na sterowanie mysza i klawiatura` | panel hosta w trakcie sesji | wyłączane w dowolnym momencie, bez rozłączania |
+| `Zablokuj te maszynie wejście lokalne` | panel hosta (Linux/X11) | osoba przy komputerze nie może ruszać myszy |
+| `Dostępny dla innych` | okno główne | twardy kill switch: brak nowych połączeń |
+
+Etykiety w zakładce **Przychodzace** i w panelu hosta są zapisane bez ogonków — dokładnie
+tak wyglądają w oknie. Wyjątki to `Dostępny dla innych` i `Domyślnie tylko podgląd`.
+Okno zgody ma osobny przełącznik `Zezwól na sterowanie myszką i klawiaturą` i przyciski
+**Odrzuć** / **Przyjmij**.
 
 Hasło nie jest zapisywane na dysku w postaci jawnej — w pliku konfiguracyjnym leży
 sól i weryfikator PBKDF2, a plik ma prawa `0600`. Odcisk klucza drugiej strony jest

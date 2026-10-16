@@ -183,7 +183,7 @@ losowania ID.
 | `offline` | host nie ma sygnalizacji na tym serwerze | czy host ma ten sam adres relay, czy suwak „Dostępny dla innych" jest włączony |
 | `busy` | host już prowadzi sesję (jedna na raz) | rozłączyć tamtą sesję |
 | `already-dialing` | ten sam klient dzwoni już gdzie indziej | odczekać ~75 s (RING_TIMEOUT) |
-| `timeout` / `join-timeout` | host nie kliknął „Zezwól" w porę | zgoda ma 75 s; przy hasle ten krok odpada |
+| `timeout` / `join-timeout` | host nie kliknął „Przyjmij" w porę | zgoda ma 75 s; przy haśle ten krok odpada |
 | `siebie` | wpisano własne ID | — |
 | `relay milczy (timeout)` | serwer padł albo wypiło go NAT | klient reconnectuje sam (backoff 1→30 s) |
 

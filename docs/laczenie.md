@@ -54,8 +54,15 @@ sha256sum DeskLink.exe                             # Linux / Wine
 
 Ma wyjść `c8aae9a96785930f5b867648ebff93bfb827a37d9df98052cf04995d75becb7e`. Pierwsze
 uruchomienie Windows może zapytać o zaufanie do wydawcy i przepustnicę w zaporze —
-to normalne przy programie, który nasłuchuje na porcie. **Na Linuxie nie pobierasz
-nic**: odpalasz `python3 -m rd gui` z katalogu projektu.
+to normalne przy programie, który nasłuchuje na port. **Na Linuxie nie pobierasz
+`.exe`**: bierzesz projekt i odpalasz go z Pythona, czyli w tej samej wersji, którą
+uruchomiony jest host Windowsowy:
+
+```bash
+git clone https://github.com/worrisomeneed69/desklink.git && cd desklink
+pip install -r requirements.txt
+python3 -m rd gui
+```
 
 ## 2. Wspólny relay — trzy sposoby
 
