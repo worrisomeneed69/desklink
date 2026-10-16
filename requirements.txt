@@ -1,0 +1,15 @@
+# DeskLink - zaleznosci Pythona (Windows 11, Wine, Linux).
+#
+# Wszystko poza Pillow jest opcjonalne: kod sprawdza importy w locie i potrafi
+# pracowac bez ktorejkolwiek z tych bibliotek (patrz rd/capture.py,
+# rd/input_remote.py, rd/crypto.py). Bez Pillow nie ma okna podgladu.
+#
+#   pip install -r requirements.txt
+#
+# Brak ktorejkolwiek pozycji ponizej = utrata funkcji, nie awaria aplikacji:
+Pillow>=10.0          # dekodywanie JPEG-ow ekranu + okno Tk (ImageTk)
+mss>=9.0              # szybki zrzut ekranu (Windows/Linux); bez niego pada sie na PIL.ImageGrab
+cryptography>=41.0    # E2E: X25519 + HKDF + AES-GCM i dowod hasla PBKDF2
+                      # (bez tej biblioteki sesja leci JAWNIE i UI o tym krzyczy)
+pyautogui>=0.9.54     # wtrysk myszki/klawiatury po stronie hosta
+pyperclip>=1.8        # synchronizacja schowka, gdy Tk nie da rady

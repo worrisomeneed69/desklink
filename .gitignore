@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# build / pakiet Windows
+build/
+dist/
+*.spec
+
+# prefiks Wine z Windowsem Pythonem (~1 GB, stawia go scripts/setup_wine_windows.sh)
+.wine-desklink/
+wine-setup.log
+wine-setup.out
+
+# artefakty testow
+qa_out/
+*.jsonl
+
+# lokalne profile i sekret (config.json ma 0600 i NIE powinien trafic do repo)
+config.json
+*.local
+
+# regenerowalne sciagi — setup_wine_windows.sh pobiera Pythona sam, Tailscale/bore
+# to instalatory z oficjalnych zrodel (patrz docs/laczenie.md)
+vendor/
+tools/
+
+# status odpalonego relaya i logi uruchomieniowe
+relay.log
+relay.pid
+*.log
