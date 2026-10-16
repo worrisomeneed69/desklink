@@ -176,7 +176,9 @@ def main() -> int:
 
     got = 0
     size = (0, 0)
-    for _ in range(200):
+    # Wine plus Python z /mnt potrafi startowac znacznie dluzej niz zamrozony
+    # .exe, wiec czekamy do 60 s, ale wychodzimy przy pierwszych 8 klatkach.
+    for i in range(1200):
         app.root.update()
         time.sleep(0.05)
         sess = agent.session
@@ -185,6 +187,9 @@ def main() -> int:
             if int(sess.stats.get("frames_in") or 0) >= 8:
                 got = int(sess.stats.get("frames_in"))
                 break
+        if i and i % 200 == 0:
+            f = int((agent.session.stats.get("frames_in") or 0)) if agent.session else 0
+            print(f"  ...bez klatek po {i * 0.05:.0f} s (frames_in={f})")
     check("Wine nadaje obraz ekranu", got >= 8, f"frames_in={got} rozmiar={size[0]}x{size[1]}")
     time.sleep(1.2)
     app.root.update()
